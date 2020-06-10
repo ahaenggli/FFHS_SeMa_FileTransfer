@@ -1,0 +1,136 @@
+%Vorlage fuer Thesen an der FFHS
+\documentclass{ffhsthesis}
+
+\usepackage[utf8]{inputenc}
+\usepackage[style=ieee,backend=biber]{biblatex}
+
+% Literaturverzeichnis
+\addbibresource{lib/literatur.bib}
+
+% "\ToDo"-Befehl in rotem Text
+\newcommand*{\ToDo}[1]{\textcolor{red}{TODO: #1}}
+
+
+\begin{document}
+
+\dokumentTyp{Bachelor/Master-Thesis}
+\studiengang{INF/WI}
+\title{Titel der Thesis}
+\subtitle{Optionaler Untertitel} % optional
+\titelbild[height=2cm,width=10cm]{ffhslogo}  % optional
+\author{Mein Vor- und Nachname}
+% \date{}
+\wohnort{Mein Wohnort}
+%\referent{Name des Referenten\\ Titel\\Unterrichtetes Fach}
+\referentin{Name der Referentin\\ Titel\\Unterrichtetes Fach}
+\eingereichtBei{Dr.\ Oliver Kamin\\Departement Informatik\\Departementsleiter} 
+
+\dedication{Diese Thesis widme ich\\\dots}
+
+\maketitle
+
+
+\begin{zusammenfassung}
+... Deutsche Zusammenfassung ...
+\end{zusammenfassung}
+
+\begin{abstract}
+... English summary ...
+\end{abstract}
+
+\tableofcontents
+
+
+\begin{abkuerzungen}[MUSTER] % Das Muster dient zur Bestimmung der Einrueckungstiefe
+\item[DInf] Departement Informatik
+\item[FFHS] Fernfachhochschule Schweiz
+\end{abkuerzungen}
+
+
+\startThesis % Befehl muss vor dem ersten chapter stehen (Seitennummerierung!)
+
+\chapter{Einleitung}
+\section{Abc}
+
+Text
+
+\begin{figure}[ht]
+  \begin{center}
+  \includegraphics{ffhslogo}
+  \end{center}
+  \caption{Das FFHS-Logo}
+\end{figure}
+
+
+Mehr Text\cite[p.~55]{Humble}
+ 
+\begin{table}[ht]
+  \begin{center}
+  \begin{tabular}{|c|c|c|c|}
+  \hline
+  F & F & H & S \\
+  \hline
+  \end{tabular}
+  \end{center}
+  \caption{Logo als Tabelle}
+\end{table}
+
+\chapter{Material}
+
+\chapter{Methoden}
+
+\chapter{Resultate}
+
+
+
+\listoffigures
+
+\listoftables
+
+%\begin{thebibliography}{XX}
+%\bibitem[XY]{XY} blah
+%\end{thebibliography}
+% oder besser
+% \bibliography{myBibTeXFile.bib}
+\printbibliography
+
+\newpage
+
+\begin{appendix}
+
+
+\chapter*{Selbstständigkeitserklärung}
+Ich erkläre hiermit, dass ich diese Thesis selbständig verfasst 
+und keine andern als die angegebenen Quellen benutzt habe. 
+Alle Stellen, die wörtlich oder sinngemäss aus Quellen entnommen wurden, 
+habe ich als solche kenntlich gemacht. Ich versichere zudem, dass ich bisher 
+noch keine wissenschaftliche Arbeit mit gleichem oder ähnlichem Inhalt an der 
+Fernfachhochschule Schweiz oder an einer anderen Hochschule eingereicht habe. 
+Mir ist bekannt, dass andernfalls die Fernfachhochschule Schweiz zum Entzug 
+des aufgrund dieser Thesis verliehenen Titels berechtigt ist.
+
+\vspace{4cm}
+\noindent
+\hrule \ \\[-0.5ex]
+Ort, Datum, Unterschrift
+
+
+
+
+%\chapter*{Einverständniserklärung}
+%Wir bestätigen hiermit, dass wir die vorstehende Arbeit (Module-Kürzel/Name) im Kollektiv 
+%angefertigt haben und somit mit den abgelieferten Dokumenten einverstanden sind. 
+%Im Sinne einer Gruppenarbeit akzeptieren wir eine kollektive 
+%Bewertung unserer Arbeit.
+%
+%\vspace{2cm}
+%\noindent
+%\hrule \ \\[-0.5ex]
+%Ort, Datum, Unterschrift
+
+
+\end{appendix}
+
+\end{document}
+
+
