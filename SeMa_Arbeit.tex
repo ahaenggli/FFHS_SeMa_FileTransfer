@@ -3,6 +3,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage{bashful}
 
 % Literaturverzeichnis
 \addbibresource{lib/literatur.bib}
@@ -13,77 +14,40 @@
 
 \begin{document}
 
-\dokumentTyp{Bachelor/Master-Thesis}
-\studiengang{INF/WI}
-\title{Titel der Thesis}
-\subtitle{Optionaler Untertitel} % optional
-\titelbild[height=2cm,width=10cm]{ffhslogo}  % optional
-\author{Mein Vor- und Nachname}
+\dokumentTyp{Seminararbeit}
+\studiengang{INF}
+\title{FileTransfer: Analyse und Vergleich HTTP(s)-Lösung mit FTP}
+\subtitle{auf einem Synology NAS DS215+} % optional
+%\titelbild[height=2cm,width=10cm]{ffhslogo}  % optional
+\author{Adriano Hänggli}
 % \date{}
-\wohnort{Mein Wohnort}
+\wohnort{Brugg}
 %\referent{Name des Referenten\\ Titel\\Unterrichtetes Fach}
-\referentin{Name der Referentin\\ Titel\\Unterrichtetes Fach}
+\referentin{Prof. Dr. Heinrich Zimmermann\\ Dozent für\\Seminararbeit}
 \eingereichtBei{Dr.\ Oliver Kamin\\Departement Informatik\\Departementsleiter} 
 
-\dedication{Diese Thesis widme ich\\\dots}
+% \dedication{Diese Thesis widme ich\\\dots}
 
 \maketitle
 
-
-\begin{zusammenfassung}
-... Deutsche Zusammenfassung ...
-\end{zusammenfassung}
-
-\begin{abstract}
-... English summary ...
-\end{abstract}
+% Abstract/Zusammenfassung
+\input{content/abstract.tex}
 
 \tableofcontents
 
 
-\begin{abkuerzungen}[MUSTER] % Das Muster dient zur Bestimmung der Einrueckungstiefe
-\item[DInf] Departement Informatik
-\item[FFHS] Fernfachhochschule Schweiz
-\end{abkuerzungen}
+% Abkürzungen
+\input{content/abkuerzungen.tex}
+
+% Glossar
+\input{content/glossar.tex}
+
 
 
 \startThesis % Befehl muss vor dem ersten chapter stehen (Seitennummerierung!)
+\input{content/chapter.tex}
 
-\chapter{Einleitung}
-\section{Abc}
-
-Text
-
-\begin{figure}[ht]
-  \begin{center}
-  \includegraphics{ffhslogo}
-  \end{center}
-  \caption{Das FFHS-Logo}
-\end{figure}
-
-
-Mehr Text\cite[p.~55]{Humble}
- 
-\begin{table}[ht]
-  \begin{center}
-  \begin{tabular}{|c|c|c|c|}
-  \hline
-  F & F & H & S \\
-  \hline
-  \end{tabular}
-  \end{center}
-  \caption{Logo als Tabelle}
-\end{table}
-
-\chapter{Material}
-
-\chapter{Methoden}
-
-\chapter{Resultate}
-
-
-
-\listoffigures
+\listoffigures 
 
 \listoftables
 
@@ -113,7 +77,6 @@ des aufgrund dieser Thesis verliehenen Titels berechtigt ist.
 \noindent
 \hrule \ \\[-0.5ex]
 Ort, Datum, Unterschrift
-
 
 
 

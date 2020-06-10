@@ -40,6 +40,10 @@
 \addcontentsline{toc}{chapter}{Abk\"urzungen}
 \begin{labeling}{#1}}{\end{labeling}}
 
+\newenvironment{glossar}[1][WWWWW]{\chapter*{Glossar}
+\addcontentsline{toc}{chapter}{Glossar}
+\begin{labeling}{#1}}{\end{labeling}}
+
 \newcommand{\@dokumentTyp}{Entwurf}
 \newcommand{\dokumentTyp}[1]{\gdef\@dokumentTyp{#1}}
 
