@@ -11,13 +11,23 @@
 % "\ToDo"-Befehl in rotem Text
 \newcommand*{\ToDo}[1]{\textcolor{red}{TODO: #1}}
 
+% TOC mit Hyperlinks %
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
 
 \begin{document}
 
 \dokumentTyp{Seminararbeit}
 \studiengang{INF}
-\title{FileTransfer: Analyse und Vergleich HTTP(s)-Lösung mit FTP}
-\subtitle{auf einem Synology NAS DS215+} % optional
+\title{Vereinfachter Datenaustausch mittels Web anstelle von FTP}
+%\title{FileTransfer: Analyse und Vergleich HTTP(s)-Lösung mit FTP}
+%\subtitle{auf einem Synology NAS DS215+} % optional
 %\titelbild[height=2cm,width=10cm]{ffhslogo}  % optional
 \author{Adriano Hänggli}
 % \date{}
@@ -46,6 +56,11 @@
 
 \startThesis % Befehl muss vor dem ersten chapter stehen (Seitennummerierung!)
 \input{content/chapter.tex}
+\input{content/chapter/einleitung.tex}
+\input{content/chapter/material.tex}
+\input{content/chapter/methoden.tex}
+\input{content/chapter/resultat.tex}
+
 
 \listoffigures 
 
