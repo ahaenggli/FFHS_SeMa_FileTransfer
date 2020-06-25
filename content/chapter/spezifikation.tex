@@ -1,14 +1,79 @@
-\chapter{Spezifikation der Applikation}
+\chapter{Spezifikation des Prototyps}
+%\ToDo{Darstellung des Stand des Wissens und der Technik (bezogen auf die Problemstellung)}
+In diesem Kapitel werden die Anforderungen an den Prototyps beschrieben und analysiert. 
+Es soll eine Architektur definiert werden, die es einfach möglich macht, die nötigen Abläufe abzubilden. 
+Am Ende des Kapitels entsteht dadurch ein Lösungskonzept welches mit PHP umgesetzt wird.
 
-Bisher: FTP (Server an Hauptsitz, Arbeit oft in «Filiale»
-Administrativer Aufwand: Pflege der Logins (globale Logins wären Sicherheitsrisiko)
-IT des Kunden blockiert FTP
+\section{Technische Grundlagen}
+FTP und HTTPS sind beides Protokolle, welche auf TCP/IP basieren und sich im Anwendungslayer, auch Layer 7 genannt, befinden. \cite[p.~26]{Zisler}  
+Bei der Variante FTP werden jeweils mehrere Ethernet-Verbindungen aufgebaut. Im Minimum zwei, eine für die Dateiübertragung selber und eine für die Kontrolle sowie Steuerung.
+Via Ethernet können maximal 1500 Bytes übertragen werden, um eine Splittung auf Netzwerk-Ebene kümmert sich das Protokoll gemäss Definition selbst \cite{Zisler}.
 
+Durch diese wichtige Gemeinsamkeit ist zu erwarten, dass sich die Performanz einer Dateiübertrag sehr ähnlich verhalten sollte.
 
-- Anwendungslayer Layout FTP und HTTP \cite[p.~26]{Zisler}
-- HTML \cite[p.~174]{Butz}
-- PHP weil Synology 
-- DropzoneJs GUI nicht neu \cite{DropzoneJs}
-- SSO Synology integration \cite{Synology}
-- Filestruktur für Ablage, direkt in Netzwerk 
+Die vorhandene, etwas ältere, Hardware in Form eines auf Linux basierten Synology NAS DS215+ schränkt die Möglichkeiten zur Realisierung ein. 
+Es können keine Docker-Container installiert werden. Es muss daher mit nativ vorhandenen Apps, auch Pakete genannt, gearbeitet werden.  
+
+Das Paket `Web Station' ist sowohl auf älteren wie auch auf neueren Synology-NAS vorhanden. \cite{SynologyWS} 
+
+Für Webseiten und entsprechend auch Webapps ist weltweit HTML als Darstellungssyntax definiert. 
+Für schönere Darstellungen kann CSS und für dynamische, allenfalls gar asynchrone, Datenbezüge kann JavaScript verwendet werden. \cite[p.~174]{Butz} 
+Diese drei genannten Scriptsprachen werden vom Browser interpretiert und sind somit problemlos mit der Synology Web Station nutzbar.
+Zusätzlich kann für Dateioperationen das serverseitig vorhandene PHP \cite{SynologyWS} verwendet werden.
+
+\section{Anforderungen und deren Hürden}
+Aufgrund der technischen Grundlagen wird nebst den einzelnen Anforderungen auf die zu erwartenden Hürden mit PHP, HTML, CSS und JavaScript eingegangen.
+
+\subsection{Hochladen von Dateien}
+Die Kunden bzw. Vertriebspartner sollen einen Link erhalten, der ihnen das Hochladen von Dateien ermöglicht. Durch den Link sollen die Kunden nur den für sie bestimmten `Ordner' sehen. 
+Den Kunden soll es freistehen zwecks Strukturierung der Dateien, eigene Unterordner zu erstellen.
+Das Hochladen soll durch einfaches Drag\&Drop oder aber auswählen der Dateien durch eine Dialogbox möglich sein. 
+Um einen Überblick über den Stand des Hochladens zu ermöglichen, ist eine Statusanzeige dazu zwingend erforderlich. 
+Für die Kunden darf keine Möglichkeiten bestehen, die hochgeladenen Dateien selbständig wieder herunterzuladen. 
+Dadurch kann der Datenschutz für mehrere parallel laufende Projekte gewährleistet werden.
+Es darf nicht möglich sein, durch einfache Manipulation des Links, andere Ordner zu sehen.  
+\\
+Seitens PHP gibt es eine Konfiguration zur maximalen Dateigrösse für eine Übermittlung. Übersteigt eine Datei diese Grösse, kann sie nicht hochgeladen werden \cite{PHPpitfalls}. 
+Zu grosse Dateien müssen daher in kleinere geteilt, hochgeladen und auf dem Server wieder zusammengesetzt werden.
+\\ 
+Drag\&Drop sowie das Teilen und Zusammensetzen von Dateien werden Browserseitig angestossen. Je nach Browser könnten dadurch andere JavaScript oder CSS Implementation nötig sein.
+Bei der Realisierung ist daher darauf zu achten, allfällig auf ein dafür ausgelegtes Framework zurückzugreifen. 
+
+\subsection{Löschen von Dateien}
+Es ist schnell passiert, dass versehentlich falsche Dateien übermittelt werden. 
+Es muss daher für die Kunden nach dem Hochladen möglich sein, Dateien wieder zu löschen. 
+Für die Kunden darf aber keine Möglichkeiten bestehen, hochgeladene Dateien selbständig wieder herunterzuladen. 
+Es darf nicht möglich sein, durch einfache Manipulation des Links, andere Dateien aus anderen Ordner zu löschen.
+\\
+Auf dem NAS ist ein linuxbasiertes System vorhanden. Unter Linux ist es nicht möglich, Ordner mit Inhalt zu löschen. 
+Wird versucht ein ganzer Unterordner zu löschen, müssen somit zuerst alle darin enthaltenen Dateien gelöscht werden. Erst dann ist ein Löschen möglich.
+
+\subsection{Herunterladen von Dateien}
+Die Kunden bzw. Vertriebspartner sollen einen Link erhalten, der ihnen das Herunterladen ausgewählter Dateien ermöglicht.
+Für die Kunden darf keine Möglichkeiten bestehen, hochgeladene Dateien selbständig wieder herunterzuladen. 
+Es darf daher nicht möglich sein, durch einfache Manipulation des Links, an andere Dateien heranzukommen.
+
+\subsection{Generierung der Links}\label{subsec:Links}
+Links fürs Hoch-  und Herunterladen von Dateien sollen durch die Migratoren erstellt werden können. Kunden und Vertriebspartner sollen diese Möglichkeit nicht erhalten. 
+Eine Möglichkeit zur User Identifizierung (Benutzer/Passwort) ist daher unumgänglich.
+Für jeden Ordner soll ein Hochladelink generiert werden können. Für jede Datei soll ein Herunterladen-Link erstellt werden können. 
+Die Links dürfen nicht sprechend sein, damit nicht durch einfache Manipulation an andere Daten gelangt werden kann. 
+\\ 
+Es würde sich anbieten, einen Token zu generieren. Dieser könnte auf einer zufällig erzeugten 32stelligen GUID basieren.
+Serverseitig müsste somit eine - nicht einsehbare Liste - mit der Zuordnung der GUID zur Datei bzw. zum Ordner gespeichert werden.
+Ordner und Dateien ohne generierte Links sind somit nicht zugänglich.
+
+\subsection{Ablage der Daten}
+Die Dateien sollen direkt auf dem entsprechenden NAS abgelegt werden können. So ist innerhalb vom Netzwerk ein schneller und einfacher Zugriff für die Migratoren möglich.
+Eine Konfiguration für den Ablageort hochgeladenen Dateien auf dem Server ist sehr wünschenswert.
+\\
+Die Web Station läuft unter einem eigenen Benutzer. 
+Sollten die Dateien nicht in der Webfreigabe direkt abgelegt werden, braucht der entsprechende User noch Berechtigungen auf dem gewählten Verzeichnis.
+
+\clearpage
+\subsection{Messung der Performanz und Rückmeldung}
+Um Aussagen zur Performanz vornehmen zu können, ist es nötig Informationen über Startzeitpunkt, Endezeitpunkt, Anzahl der Dateien, Grösse der Dateien sowie Anzahl der Dateisplittungen festzuhalten.
+So lässt sich berechnen, mit welcher Geschwindigkeit die Dateien übermittelt werden konnten.
+Rückmeldung zur Einfachheit über den Upload können mittels Smiley-Buttons erfasst werden. Klickzeitpunkt und das gewählte Smiley werden so festgehalten und die Reaktionen später ausgewertet.
+
 
