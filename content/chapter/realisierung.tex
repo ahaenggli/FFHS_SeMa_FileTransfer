@@ -86,8 +86,16 @@ Innerhalb des Netzwerk kann mit dem üblichen Dateiexplorer auf alle Dateien und
     \label{fig:file_explorer}
 \end{figure}
 
-
 \clearpage
+
+Die Nutzung eines Downloadlinks ist ebenso einfach. Er kann wie eine normale Website aufgerufen werden.
+Der Browser bringt dann automatisch den jeweiligen Standard Download-Dialog:
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=1\linewidth]{content/images/prototyp_download.png}
+    \caption{Download-Dialog im Internet Explorer}
+    \label{fig:ie_download}
+\end{figure}
 
 \section{Generierung von Links}
 Um die Links fürs Hochladen und Herunterladen von Dateien nicht sprechend zu gestalten, werden zufällig generierte 32stellige Werte verwendet.
@@ -99,13 +107,15 @@ Durch die PHP-Endung ist der Inhalt nicht aus dem Internet ersichtlich.
 \\
 Nicht eingeloggte User sind nicht in der Lage neue Links zu generieren. 
 Eingeloggte User können mittels Knopfdruck - wie bei Abbildung \ref{fig:Prototyp_Migrator} ersichtlich - auf ``[Uploadlink]'' klicken. 
-Serverseitig wird geprüft, ob es für den Ordner bereits einen zufälligen 32stelligen Wert gibt. Falls nicht, wird einer erstellt:
-\begin{figure}[h]
+Serverseitig wird geprüft, ob es für den Ordner bereits einen zufälligen 32stelligen Wert gibt. Falls nicht, wird einer erstellt (Abbildung \ref{fig:Srv_newLink}):
+\begin{figure}[!h]
     \centering
-    \includegraphics[width=1\linewidth]{content/images/prototyp_tokens.png}
+    \includegraphics[width=0.9\linewidth]{content/images/prototyp_tokens.png}
     \caption{Serverseitige Generierung eines Links}
     \label{fig:Srv_newLink}
 \end{figure}
+
+\clearpage
 
 Der so ermittelte Wert wird dann an die URL der Seite, gemäss Abbildung \ref{fig:Hochladelink_prototyp}, angehängt.
 \begin{figure}[!h]
@@ -118,8 +128,15 @@ Der so ermittelte Wert wird dann an die URL der Seite, gemäss Abbildung \ref{fi
 Durch den Aufruf der Webseite mit dem URL-Parameter können die Kunden so nur die darin enthaltenen Dateien sehen. 
 Ohne eine Möglichkeit diese herunterzuladen - wie bei Abbildung \ref{fig:Prototyp_Hochladelink} ersichtlich.
 
-
-
-
 \section{Serverseitige Aufgaben}
-\ToDo{...}
+Serverseitig mussten mit PHP folgende Aufgaben gelöst werden:
+\begin{itemize}
+    \item Kommunikation/Prüfung mit dem Synology-NAS zur Prüfung ob ein Benutzer eingeloggt ist gemäss \cite{Synology}
+    \item Anbieten des Downloads bei gültigem Downloadlink
+    \item Anzeige aller Ordner und Dateien anhand des Hochladelinks    
+    \item Löschen von Dateien und Ordner falls ein gültiger Hochladelink verwendet wird (oder Benutzer eingeloggt ist)
+    \item Loggen von hochgeladenen und heruntergeladenen Dateien für Analysezwecke
+    \item Zusammensetzen von gesplitteten Dateien
+    \item Falls eingeloggt: Anzeige ergänzen mit Möglichkeit Ordner zu wechseln
+    \item Falls eingeloggt: Generierung von neuen Links für Hochladen und Herunterladen
+\end{itemize}
