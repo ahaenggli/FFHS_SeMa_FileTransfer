@@ -10,7 +10,6 @@ Bei der Variante FTP werden jeweils mehrere Ethernet-Verbindungen aufgebaut. Im 
 Via Ethernet können maximal 1500 Bytes übertragen werden, um eine Splittung auf Netzwerk-Ebene kümmert sich das Protokoll gemäss Definition selbst \cite{Zisler}.
 
 Durch diese wichtige Gemeinsamkeit ist zu erwarten, dass sich die Performanz einer Dateiübertrag sehr ähnlich verhalten sollte.
-
 Die vorhandene, etwas ältere, Hardware in Form eines auf Linux basierten Synology NAS DS215+ schränkt die Möglichkeiten zur Realisierung ein. 
 Es können keine Docker-Container installiert werden. Es muss daher mit nativ vorhandenen Apps, auch Pakete genannt, gearbeitet werden.  
 
@@ -70,7 +69,6 @@ Eine Konfiguration für den Ablageort hochgeladenen Dateien auf dem Server ist s
 Die Web Station läuft unter einem eigenen Benutzer. 
 Sollten die Dateien nicht in der Webfreigabe direkt abgelegt werden, braucht der entsprechende User noch Berechtigungen auf dem gewählten Verzeichnis.
 
-\clearpage
 \subsection{Messung der Performanz und Rückmeldung}
 Um Aussagen zur Performanz vornehmen zu können, ist es nötig Informationen über Startzeitpunkt, Endezeitpunkt, Anzahl der Dateien, Grösse der Dateien sowie Anzahl der Dateisplittungen festzuhalten.
 So lässt sich berechnen, mit welcher Geschwindigkeit die Dateien übermittelt werden konnten.

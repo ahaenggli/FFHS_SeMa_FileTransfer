@@ -1,6 +1,6 @@
 %ToDo{Planung des Entwicklungsvorhabens (Konzeption und Realisierungsansatz)}
 %\ToDo{Dokumentation der Durchführung der Entwicklung}
-\chapter{Realisierung des Prototyps}
+\chapter{Realisierung des Prototyps}\label{chapter:Realisierung}
 Der Prototyp wird in der Skriptsprache PHP umgesetzt. 
 Dieser Entscheid wird nebst der Hardware Einschränkung durch die Verbreitung gestützt.
 PHP wird serverseitig von 79\% der Webseiten genutzt, deren Backend bekannt ist \cite[gemäss Stand Juni 2020]{w3techs}. 
@@ -9,11 +9,13 @@ Durch diese grosse Verbreitung könnte der Prototyp auch auf ganz anderen Umgebu
 
 \section{Konfiguration}
 Um den Prototyp trotz Hardware-Einschränkung möglichst allgemein zu halten für eine potentielle breite Verwendung, 
-müssen einige Parameter konfiguriert werden können. Eine mögliche Konfiguration ist mittels separater `config.php'-Datei möglich.
-Diese muss im selbem Ordner liegen wie der eigentliche Prototyp. 
-Durch die Auslagerung in eine separate Datei kann auf die Anbindung einer Datenbank verzichtet werden. 
+müssen einige Parameter konfiguriert werden können. 
+Eine mögliche Konfiguration ist mittels separater `config.php'-Datei möglich. 
+Diese wird zu Beginn der eigentliches Skripts zur Laufzeit geladen. So kann auf die Variablen zugegriffen werden,
+als ob sie im Skript selber definiert worden wären. 
+Durch die einfach gehaltene Auslagerung in eine separate Datei, kann auf die Anbindung einer Datenbank verzichtet werden. 
 Unnötiger Komplexität des Prototyps kann so entgegengewirkt werden. 
-Weiter werden so keine zusätzlichen Einschränkungen, wie z.B. das Vorhandensein einer Datenbank XY, vorgenommen.
+Weiter werden so keine zusätzlichen Einschränkungen, wie z.B. das Vorhandensein einer spezifischen Datenbank wie MySQL oder PostgreSQL, vorgenommen.
 
 \begin{figure}[h]
     \centering
@@ -40,13 +42,11 @@ Dies kann mit der Variable ``\$targetPath'' konfiguriert werden.
 Wird ein Pfad ausserhalb des eigentlichen WebServers hinterlegt, ist kein direkter Zugriff über eine URL auf eine Datei möglich.
 Dies erhöht die Sicherheit und schützt die Daten vor unbefugten Zugriff aus dem Internet.
 
-\clearpage
 \section{Graphische Benutzeroberfläche}
 Das Herzstück des Prototyps ist die Oberfläche. Diese entscheidet über gelingen oder nicht gelingen.
 Wie in \cite{Butz} beschrieben, wird versucht eine möglichst einfache Oberfläche zu gestalten. Ohne verwirrende Farben oder Effekte.
 Alle Links werden daher klassisch in blau gehalten. Alles andere sind nur Texte ohne dahinerliegende Aktionen.
 Bei der ursprünglichen Recherche zu bestehenden Tools wurden von unzähligen Anbietern die JavaScript-Lösung DropzoneJs verwendet.
-Die Dokumentation \cite{DropzoneJs} dazu ist sehr ausführlich und ebenfalls mit Serverseitigen PHP-Beispielen bestückt. 
 Diese frei verfügbare Bibliothek für die Oberfläche beinhaltet die clientseitig implementierte Lösung zu zahlreichen Hürden aus den Anforderungen:
 Drag\&Drop von Dateien, 
 Auswahl mittels Dialogbox, 
@@ -54,19 +54,27 @@ Statusanzeige über den Stand des Hochladens,
 Rückmeldungen bei Erfolg und Fehler nach dem Hochladen,
 Teilung von zu grossen Dateien, 
 Anstoss um Teildateien serverseitig wieder zusammenzusetzen,
-Nach dem Zusammensetzen kann ein Log-Aufruf abgesetzt werden.
+nach dem Zusammensetzen kann ein Log-Aufruf abgesetzt werden.
+
+\clearpage
+Die Dokumentation \cite{DropzoneJs} zu DropzoneJs ist sehr ausführlich und ebenfalls mit Serverseitigen PHP-Beispielen bestückt. 
+Vermutlich einer der Gründe, wieso Tools wie Droppy oder YouTransfer darauf basieren.
+Aufgrund der zahlreichen Vorteile und breiten Verwendung in Tools mit ähnlichen Möglichkeiten,
+wird zur Implementation dieses Prototyps ebenfalls auf DropzoneJs zurückgegriffen.
 
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1\linewidth]{content/images/prototyp_nichteingeloggt.png}
     \caption{Ansicht Prototyps von Kunde mittels Hochladelink}
     \label{fig:Prototyp_Hochladelink}
-\end{figure}
-
+\end{figure} %\\
 Wie in Abbildung \ref{fig:Prototyp_Hochladelink} ersichtlich, konnte die Oberfläche sehr einfach gehalten werden.
 Hochladen und Löschen sind für Kunden möglich ohne die Daten wieder einzusehen. Für die bessere Strukturierung können unbeschränkt neue Unterordner erstellt werden.
-Das Synology-Loginfenster kann mit Klick auf den Button ``SSO Login'' geöffnet werden.
-Einmal eingeloggt stehen weitere Möglichkeiten zur Verfügung. 
+Das Synology-Loginfenster kann mit Klick auf den Button ``SSO Login'' geöffnet werden. \\ 
+    
+\clearpage  
+
+Einmal eingeloggt stehen weitere Möglichkeiten, sichtbar in Abbildung \ref{fig:Prototyp_Migrator}, zur Verfügung. 
 
 \begin{figure}[!h]
     \centering
@@ -78,7 +86,8 @@ Einmal eingeloggt stehen weitere Möglichkeiten zur Verfügung.
 Die zusätzlichen Möglichkeiten sind gemäss Abbildung \ref{fig:Prototyp_Migrator} 
 die Ordnernavigation unabhängig vom Uploadlink, das erstellen weiterer Uploadlinks 
 sowie das Erstellen von Downloadlinks.
-Innerhalb des Netzwerk kann mit dem üblichen Dateiexplorer auf alle Dateien und Ordner zugegriffen werden.
+Innerhalb des Netzwerk kann, wie in Abbildung \ref{fig:file_explorer} ersichtlich, mit dem üblichen Dateiexplorer auf alle Dateien und Ordner zugegriffen werden.
+
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1\linewidth]{content/images/file_explorer.png}
@@ -86,10 +95,10 @@ Innerhalb des Netzwerk kann mit dem üblichen Dateiexplorer auf alle Dateien und
     \label{fig:file_explorer}
 \end{figure}
 
-\clearpage
-
+%\clearpage
 Die Nutzung eines Downloadlinks ist ebenso einfach. Er kann wie eine normale Website aufgerufen werden.
-Der Browser bringt dann automatisch den jeweiligen Standard Download-Dialog:
+Der Browser bringt dann automatisch den jeweiligen Standard Download-Dialog. 
+Ein Beispiel dazu findet sich mit Abbildung \ref{fig:ie_download}.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1\linewidth]{content/images/prototyp_download.png}
@@ -103,7 +112,8 @@ Diese können durch einen Aufruf der PHP\-Funktion ``random\_bytes(32)'' erzeugt
 Die so erzeugten Werte werden mit dem dazugehörenden Pfad abgespeichert. Als Pfad wird der Pfad zur Datei bei Download, 
 sowie der Pfad zum Ordner fürs Hochladen verwendet.
 Um erneut auf eine Datenbank zu verzichten, werden die Zuweisungen ebenfalls in einer PHP-Datei gespeichert.
-Durch die PHP-Endung ist der Inhalt nicht aus dem Internet ersichtlich.
+Analog der Konfigurationsdatei kann die Datei mit den Zuweisungen zur Laufzeit geladen werden. So besteht für das Skript jederzeit Zugriff auf die Informationen.
+Durch die PHP-Endung der Zuweisungsdatei ist der Inhalt nicht öffentlich aus dem Internet ersichtlich.
 \\
 Nicht eingeloggte User sind nicht in der Lage neue Links zu generieren. 
 Eingeloggte User können mittels Knopfdruck - wie bei Abbildung \ref{fig:Prototyp_Migrator} ersichtlich - auf ``[Uploadlink]'' klicken. 
@@ -114,17 +124,15 @@ Serverseitig wird geprüft, ob es für den Ordner bereits einen zufälligen 32st
     \caption{Serverseitige Generierung eines Links}
     \label{fig:Srv_newLink}
 \end{figure}
-
-\clearpage
-
-Der so ermittelte Wert wird dann an die URL der Seite, gemäss Abbildung \ref{fig:Hochladelink_prototyp}, angehängt.
+  \\
+Der so ermittelte Wert wird dann an die URL der Seite angehängt (siehe Abbildung \ref{fig:Hochladelink_prototyp}).
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1\linewidth]{content/images/prototyp_uploadtoken.png}
     \caption{Neu generierter Hochladelink}
     \label{fig:Hochladelink_prototyp}
 \end{figure}
-
+  \\
 Durch den Aufruf der Webseite mit dem URL-Parameter können die Kunden so nur die darin enthaltenen Dateien sehen. 
 Ohne eine Möglichkeit diese herunterzuladen - wie bei Abbildung \ref{fig:Prototyp_Hochladelink} ersichtlich.
 
