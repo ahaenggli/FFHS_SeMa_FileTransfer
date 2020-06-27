@@ -1,18 +1,16 @@
-%ToDo{Planung des Entwicklungsvorhabens (Konzeption und Realisierungsansatz)}
-%\ToDo{Dokumentation der Durchführung der Entwicklung}
 \chapter{Realisierung des Prototyps}\label{chapter:Realisierung}
 Der Prototyp wird in der Skriptsprache PHP umgesetzt. 
 Dieser Entscheid wird nebst der Hardware Einschränkung durch die Verbreitung gestützt.
 PHP wird serverseitig von 79\% der Webseiten genutzt, deren Backend bekannt ist \cite[gemäss Stand Juni 2020]{w3techs}. 
-Dazu gehören auch viele bekannte Seiten wie Facebook, Wikipedia, Zoom oder Wordpress.
-Durch diese grosse Verbreitung könnte der Prototyp auch auf ganz anderen Umgebungen genutzt werden, sofern serverseitig PHP zur Verfügung steht.
+Dazu gehören auch viele bekannte Seiten wie Facebook, Wikipedia, Zoom oder WordPress.
+Durch diese grosse Verbreitung könnte der Prototyp auch auf anderen Umgebungen genutzt werden, sofern serverseitig PHP zur Verfügung steht.
 
 \section{Konfiguration}
-Um den Prototyp trotz Hardware-Einschränkung möglichst allgemein zu halten für eine potentielle breite Verwendung, 
+Um den Prototyp trotz Hardware-Einschränkung möglichst allgemein zu halten für eine potenzielle breite Verwendung, 
 müssen einige Parameter konfiguriert werden können. 
 Eine mögliche Konfiguration ist mittels separater `config.php'-Datei möglich. 
-Diese wird zu Beginn der eigentliches Skripts zur Laufzeit geladen. So kann auf die Variablen zugegriffen werden,
-als ob sie im Skript selber definiert worden wären. 
+Diese wird zu Beginn des eigentliches Skripts zur Laufzeit geladen. So kann auf die Variablen zugegriffen werden,
+als ob sie im Skript selbst definiert worden wären. 
 Durch die einfach gehaltene Auslagerung in eine separate Datei, kann auf die Anbindung einer Datenbank verzichtet werden. 
 Unnötiger Komplexität des Prototyps kann so entgegengewirkt werden. 
 Weiter werden so keine zusätzlichen Einschränkungen, wie z.B. das Vorhandensein einer spezifischen Datenbank wie MySQL oder PostgreSQL, vorgenommen.
@@ -35,8 +33,11 @@ So ist es einfach möglich Migratoren (=eingeloggte User) von Kunden (=nicht ein
 Die nötigen Parameter für die Anbindung eins beliebigen Synology-NAS können mit den Variablen beginnend mit ``\$sso\_'' gesetzt werden.
 
 \subsection{Datenhaltung}
-Der ganze Prototyps verwaltet nur Dateien. Das ist eine Aufgabe, die das Dateisystem ebenfalls wahrnimmt.
+Der Prototyp verwaltet unter anderem Dateien. Das ist eine Aufgabe, die das Dateisystem ebenfalls wahrnimmt.
 Es ist daher sinnvoll, für die Haltung der Dateien auf das Dateisystem zurückzugreifen. 
+
+Als angenehmer Nebeneffekt vereinfacht eine Analogie zur bekannten Explorer-Darstellung die Nutzung ungemein, wie es \cite[p.~76f]{Butz} unter Mappings beschreibt.
+
 Beim Prototyp muss daher nur angegeben werden, wo die Daten am Ende gespeichert werden sollen. 
 Dies kann mit der Variable ``\$targetPath'' konfiguriert werden. 
 Wird ein Pfad ausserhalb des eigentlichen WebServers hinterlegt, ist kein direkter Zugriff über eine URL auf eine Datei möglich.
@@ -44,7 +45,7 @@ Dies erhöht die Sicherheit und schützt die Daten vor unbefugten Zugriff aus de
 
 \section{Graphische Benutzeroberfläche}
 Das Herzstück des Prototyps ist die Oberfläche. Diese entscheidet über gelingen oder nicht gelingen.
-Wie in \cite{Butz} beschrieben, wird versucht eine möglichst einfache Oberfläche zu gestalten. Ohne verwirrende Farben oder Effekte.
+Wie in \cite[p.~74ff]{Butz} beschrieben, wird versucht eine möglichst einfache Oberfläche zu gestalten. Ohne verwirrende Farben oder Effekte.
 Alle Links werden daher klassisch in blau gehalten. Alles andere sind nur Texte ohne dahinerliegende Aktionen.
 Bei der ursprünglichen Recherche zu bestehenden Tools wurden von unzähligen Anbietern die JavaScript-Lösung DropzoneJs verwendet.
 Diese frei verfügbare Bibliothek für die Oberfläche beinhaltet die clientseitig implementierte Lösung zu zahlreichen Hürden aus den Anforderungen:
@@ -53,7 +54,7 @@ Auswahl mittels Dialogbox,
 Statusanzeige über den Stand des Hochladens,
 Rückmeldungen bei Erfolg und Fehler nach dem Hochladen,
 Teilung von zu grossen Dateien, 
-Anstoss um Teildateien serverseitig wieder zusammenzusetzen,
+Anstoss für serverseitiges zusammensetzen von Teildateien,
 nach dem Zusammensetzen kann ein Log-Aufruf abgesetzt werden.
 
 \clearpage
@@ -69,7 +70,7 @@ wird zur Implementation dieses Prototyps ebenfalls auf DropzoneJs zurückgegriff
     \label{fig:Prototyp_Hochladelink}
 \end{figure} %\\
 Wie in Abbildung \ref{fig:Prototyp_Hochladelink} ersichtlich, konnte die Oberfläche sehr einfach gehalten werden.
-Hochladen und Löschen sind für Kunden möglich ohne die Daten wieder einzusehen. Für die bessere Strukturierung können unbeschränkt neue Unterordner erstellt werden.
+Hochladen und Löschen sind für Kunden möglich, ohne die Daten wieder einzusehen. Für die bessere Strukturierung können unbeschränkt neue Unterordner erstellt werden.
 Das Synology-Loginfenster kann mit Klick auf den Button ``SSO Login'' geöffnet werden. \\ 
     
 \clearpage  
@@ -84,7 +85,7 @@ Einmal eingeloggt stehen weitere Möglichkeiten, sichtbar in Abbildung \ref{fig:
 \end{figure}
 
 Die zusätzlichen Möglichkeiten sind gemäss Abbildung \ref{fig:Prototyp_Migrator} 
-die Ordnernavigation unabhängig vom Uploadlink, das erstellen weiterer Uploadlinks 
+die Ordnernavigation unabhängig vom Uploadlink, das Erstellen weiterer Uploadlinks 
 sowie das Erstellen von Downloadlinks.
 Innerhalb des Netzwerk kann, wie in Abbildung \ref{fig:file_explorer} ersichtlich, mit dem üblichen Dateiexplorer auf alle Dateien und Ordner zugegriffen werden.
 
@@ -96,7 +97,7 @@ Innerhalb des Netzwerk kann, wie in Abbildung \ref{fig:file_explorer} ersichtlic
 \end{figure}
 
 %\clearpage
-Die Nutzung eines Downloadlinks ist ebenso einfach. Er kann wie eine normale Website aufgerufen werden.
+Die Nutzung eines Downloadlinks ist ebenso einfach. Er kann wie eine normale Webseite aufgerufen werden.
 Der Browser bringt dann automatisch den jeweiligen Standard Download-Dialog. 
 Ein Beispiel dazu findet sich mit Abbildung \ref{fig:ie_download}.
 \begin{figure}[!h]

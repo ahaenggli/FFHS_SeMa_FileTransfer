@@ -4,26 +4,26 @@ Dabei wird aus Gründen der besseren Lesbarkeit ausschliesslich
 die männliche Form verwendet.
 
 \section{Ausgangslage}
-Software altert nicht. Nach einiger Zeit der Nutzung kommt es vor, dass diese aber nicht mehr alle Wünschen oder Gesetzgebungen erfüllt.
+Software altert nicht. Nach einiger Zeit der Nutzung kommt es vor, dass diese aber nicht mehr alle Wünsche oder Gesetzgebungen erfüllt.
 So kann bei Gemeinden, Städten und Energieversorgungsunternehmen - nebst Fusionen oder Softwarezwang - das Bedürfnis entstehen, 
 eine bestehende Software mit einer zeitgemässen Lösung auszuwechseln.   
 
 Dieser Trend zeichnet sich derzeit gemäss den öffentlichen Ausschreibungen schweizweit im Bereich der Gemeinden, Städte und Energieversorgungsunternehmen 
 (nachfolgend ``Kunden'' genannt) ab. 
-Kleinere Gemeinden und EVU fusionieren um ihre Ressourcen zu bündeln und die Administration zu vereinfachen. 
-Mittlere und Grössere Kunden suchen alternative Lösungen um mit den Gesetzesänderungen und den Marktbegleitern mitzuhalten.  
+Kleinere Gemeinden und EVU fusionieren, um ihre Ressourcen zu bündeln und die Administration zu vereinfachen. 
+Mittlere und Grössere Kunden suchen alternative Lösungen, um mit den Gesetzesänderungen und den Marktbegleitern mitzuhalten.  
 
-Die teilweise über mehrere Jahrzehnte erfassten Datenbestände müssen dann in die neue Software übernommen werden. 
+Die, teilweise über mehrere Jahrzehnte erfassten, Datenbestände müssen dann in die neue Software übernommen werden. 
 Ein Start auf grüner Wiese kommt im Umfeld der Öffentlichen Verwaltung sowie der Energiebranche fast nie in Frage. 
 Zu wichtig sind die bestehenden Informationen für Auskünfte und Prognosen. 
-Über die Jahre sammelt sich daher eine Unmenge an Daten: 
-Von weniger heiklen Zählerständen bis hin zu spannenden Umzugsdaten und äusserst geheim zu haltenden Steuerdeklarationen. 
+Über die Jahre sammelt sich folglich eine Unmenge an Daten: 
+Von weniger heiklen Zählerständen bis hin zu spannenden Umzugsdaten und äusserst geheim zuhaltenden Steuerdeklarationen. 
 
 Um die Daten aus der alten Software zu übernehmen, müssen diese als Dateien an einen Migrator übermittelt werden. 
 Für die Dateiübermittelung gibt es in der Schweiz keinen einheitlichen Standard. 
-Es existieren folglich bereits unzählige Möglichkeiten: E-Mail, CloudDienste (OneDrive, Dropbox, usw.) sowie FTP sind nur 
-einige davon. E-Mail und CloudDienste fallen sehr oft weg, da sie - im Falle von Steuerdaten, 
-die in allen Fällen in der Schweiz bleiben müssen - gesetzlich nicht erlaubt sind oder aber die Datenmenge einfach zu gross ist. 
+Es existieren daher bereits unzählige Möglichkeiten. E-Mail, Cloud-Dienste (OneDrive, Dropbox, usw.) sowie FTP sind nur 
+einige davon. E-Mail und Cloud-Dienste fallen sehr oft weg, da sie gesetzlich nicht erlaubt sind oder aber die Datenmenge einfach zu gross ist. 
+Gerade bei Steuerdaten, welche unter allen Umständen in der Schweiz bleiben müssen, gibt es viele Restriktionen.
 Die häufigste Übermittlungsart im Umfeld des Autors ist FTP. 
 
 \section{Problemstellung}
@@ -31,24 +31,22 @@ Die Nutzung von FTP setzt ein paar Informatik-Anwender-Kenntnisse voraus. Das st
 Oft ist die Informatik bei den Finanzen oder der Administration eingebunden. 
 Leider weisen die dort zuständigen Personen oft alles andere als eine nützliche Affinität zur IT auf. 
 Erste Unterstützungsarbeiten entstehen somit bereits bevor mit der Migration begonnen werden kann. 
-(Rein persönliche Sicht des Autors deren Wahrheitsgehalt bislang nicht statisch erhoben wurde)
-Ein weitere Herausforderung entsteht dadurch, dass zwischen Migrator und Kunden sehr häufig noch Vertriebspartner stehen. 
+(Rein persönliche Sicht des Autors deren Wahrheitsgehalt bislang nicht statistisch erhoben wurde)
+Eine weitere Herausforderung entsteht dadurch, dass zwischen Migrator und Kunden sehr häufig noch Vertriebspartner stehen. 
 Diese können Aufträge mehrerer Kunden beim selben Migrator platzieren. 
 Die Mitarbeiter des Vertriebspartners sollten beim Migrator keinen unfreiwilligen Einblick über andere laufende Projekte erhalten. 
-Technisch stehen dafür derzeit mehrere FTP-Accounts zur Verfügung. Es entsteht erheblicher administrativer Aufwand um die FTP-Accounts zu verwalten.
+Technisch stehen dafür derzeit mehrere FTP-Accounts zur Verfügung. Es entsteht erheblicher administrativer Aufwand, um die FTP-Accounts zu verwalten.
 
 Ein weiteres Problem entsteht durch das Rücksenden der Daten. 
 Die migrierten Daten müssten im Format der neuen Software irgendwie im System des Kunden landen.
 Dafür müssen die Daten wieder zurückgesendet werden. Gerade bei grossen Kunden oder Kunden mit kantonalen Mutterkonzernen sind FTP-Verbindungen - bzw. generell eingehenden Verbindungen - gesperrt. 
 Offen hingegen sind meist SSL verschlüsselte Webseiten. 
-Es bietet sich daher an, anstelle von FTP die Datenübermittelung mittels einer HTTPS-Website vorzunehmen. 
+Es bietet sich daher an, anstelle von FTP die Datenübermittelung mittels einer HTTPS-Webseite vorzunehmen. 
 Um zu entscheiden solch eine Umstellung im geschäftlichen Umfeld sinnvoll ist, müssen folgende zentrale Fragen beantwortet werden:
 \textit{Wie verhält sich die Performanz bei der Dateiübertragung via HTTPS?} 
 \textit{Wie einfach ist der Umgang mit einer Dateiübertragung via Web?}
 
-%\textit{Mit welchem zeitlichen Aufwand ist für ein Produkt zur Dateiübertragung via Web zu rechnen?} 
-
-Diese Fragen werden mittels Prototyp einer Web-Applikation beantwortet. 
+Diese Fragen werden mittels Prototyps einer Web-Applikation beantwortet. 
 Es bestehen bereits viele Programme für den Datenaustausch via Web. Oft sind diese aber bei grossen Cloud-Anbietern gehostet. 
 Die recherchierten Selfhosted-Lösungen beinhalten alle wiederum eine administrativ aufwändige Erfassung von Nutzer-Accounts.
 Oder aber sie machen die Dateien generell öffentlich zugänglich, was im Falle von Steuer- und Stromdaten verboten ist.
@@ -56,13 +54,8 @@ Oder aber sie machen die Dateien generell öffentlich zugänglich, was im Falle 
 \section{Aufbau}
 Die Seminararbeit ist in drei Teile gegliedert. 
 Der erste Teil besteht aus der Spezifikation des Prototyps. 
-%Darstellung des Stand des Wissens und der Technik (bezogen auf die Problemstellung)
-%Umriss des geplanten eigenen innovativen Beitrages (mit Benennung der Idee und Zielsetzungen)
-%Planung des Entwicklungsvorhabens (Konzeption und Realisierungsansatz)
 Im zweiten Teil wird die Realisierung dokumentiert. 
 Der letzte Teil widmet sich der Analyse der Performanz und Rückmeldungen.
-%Dokumentation der Durchführung der Entwicklung
-%Dokumentation der Ergebnisse
 
 \section{Abgrenzung}
 Der Hauptinhalt der Seminararbeit bezieht sich auf das Entwickeln einer einfach bedienbaren Web-Applikation für die Datenübermittelung und Analyse der Performanz.

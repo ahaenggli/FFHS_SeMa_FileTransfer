@@ -1,13 +1,12 @@
 \chapter{Spezifikation des Prototyps}
-%\ToDo{Darstellung des Stand des Wissens und der Technik (bezogen auf die Problemstellung)}
-In diesem Kapitel werden die Anforderungen an den Prototyps beschrieben und analysiert. 
+In diesem Kapitel werden die Anforderungen an den Prototyp beschrieben und analysiert. 
 Es soll eine Architektur definiert werden, die es einfach möglich macht, die nötigen Abläufe abzubilden. 
-Am Ende des Kapitels entsteht dadurch ein Lösungskonzept welches mit PHP umgesetzt wird.
+Am Ende des Kapitels entsteht dadurch ein Lösungskonzept, welches mit PHP umgesetzt wird.
 
 \section{Technische Grundlagen}
 FTP und HTTPS sind beides Protokolle, welche auf TCP/IP basieren und sich im Anwendungslayer, auch Layer 7 genannt, befinden. \cite[p.~26]{Zisler}  
-Bei der Variante FTP werden jeweils mehrere Ethernet-Verbindungen aufgebaut. Im Minimum zwei, eine für die Dateiübertragung selber und eine für die Kontrolle sowie Steuerung.
-Via Ethernet können maximal 1500 Bytes übertragen werden, um eine Splittung auf Netzwerk-Ebene kümmert sich das Protokoll gemäss Definition selbst \cite{Zisler}.
+Bei der Variante FTP werden jeweils mehrere Ethernet-Verbindungen aufgebaut. Im Minimum zwei, eine für die Dateiübertragung selbst und eine für die Kontrolle sowie Steuerung.
+Via Ethernet können maximal 1500 Bytes übertragen werden, um eine Splittung auf Netzwerk-Ebene kümmert sich das Protokoll gemäss Definition selbst \cite[p.~275ff]{Zisler}.
 
 Durch diese wichtige Gemeinsamkeit ist zu erwarten, dass sich die Performanz einer Dateiübertrag sehr ähnlich verhalten sollte.
 Die vorhandene, etwas ältere, Hardware in Form eines auf Linux basierten Synology NAS DS215+ schränkt die Möglichkeiten zur Realisierung ein. 
@@ -28,32 +27,32 @@ Die Kunden bzw. Vertriebspartner sollen einen Link erhalten, der ihnen das Hochl
 Den Kunden soll es freistehen zwecks Strukturierung der Dateien, eigene Unterordner zu erstellen.
 Das Hochladen soll durch einfaches Drag\&Drop oder aber auswählen der Dateien durch eine Dialogbox möglich sein. 
 Um einen Überblick über den Stand des Hochladens zu ermöglichen, ist eine Statusanzeige dazu zwingend erforderlich. 
-Für die Kunden darf keine Möglichkeiten bestehen, die hochgeladenen Dateien selbständig wieder herunterzuladen. 
-Dadurch kann der Datenschutz für mehrere parallel laufende Projekte gewährleistet werden.
+Für die Kunden dürfen keine Möglichkeiten bestehen, die hochgeladenen Dateien selbständig wieder herunterzuladen. 
+Dadurch kann der Datenschutz für mehrere parallellaufende Projekte gewährleistet werden.
 Es darf nicht möglich sein, durch einfache Manipulation des Links, andere Ordner zu sehen.  
 \\
 Seitens PHP gibt es eine Konfiguration zur maximalen Dateigrösse für eine Übermittlung. Übersteigt eine Datei diese Grösse, kann sie nicht hochgeladen werden \cite{PHPpitfalls}. 
 Zu grosse Dateien müssen daher in kleinere geteilt, hochgeladen und auf dem Server wieder zusammengesetzt werden.
 \\ 
-Drag\&Drop sowie das Teilen und Zusammensetzen von Dateien werden Browserseitig angestossen. Je nach Browser könnten dadurch andere JavaScript oder CSS Implementation nötig sein.
+Drag\&Drop sowie das Teilen und Zusammensetzen von Dateien werden Browserseitig angestossen. Je nach Browser könnten dadurch andere JavaScript oder CSS-Implementation nötig sein.
 Bei der Realisierung ist daher darauf zu achten, allfällig auf ein dafür ausgelegtes Framework zurückzugreifen. 
 
 \subsection{Löschen von Dateien}
 Es ist schnell passiert, dass versehentlich falsche Dateien übermittelt werden. 
 Es muss daher für die Kunden nach dem Hochladen möglich sein, Dateien wieder zu löschen. 
 Für die Kunden darf aber keine Möglichkeiten bestehen, hochgeladene Dateien selbständig wieder herunterzuladen. 
-Es darf nicht möglich sein, durch einfache Manipulation des Links, andere Dateien aus anderen Ordner zu löschen.
+Es darf nicht möglich sein, durch einfache Manipulation des Links, Dateien aus anderen Ordnern zu löschen.
 \\
 Auf dem NAS ist ein linuxbasiertes System vorhanden. Unter Linux ist es nicht möglich, Ordner mit Inhalt zu löschen. 
 Wird versucht ein ganzer Unterordner zu löschen, müssen somit zuerst alle darin enthaltenen Dateien gelöscht werden. Erst dann ist ein Löschen möglich.
 
 \subsection{Herunterladen von Dateien}
 Die Kunden bzw. Vertriebspartner sollen einen Link erhalten, der ihnen das Herunterladen ausgewählter Dateien ermöglicht.
-Für die Kunden darf keine Möglichkeiten bestehen, hochgeladene Dateien selbständig wieder herunterzuladen. 
+Für die Kunden dürfen keine Möglichkeiten bestehen, hochgeladene Dateien selbständig wieder herunterzuladen. 
 Es darf daher nicht möglich sein, durch einfache Manipulation des Links, an andere Dateien heranzukommen.
 
 \subsection{Generierung der Links}\label{subsec:Links}
-Links fürs Hoch-  und Herunterladen von Dateien sollen durch die Migratoren erstellt werden können. Kunden und Vertriebspartner sollen diese Möglichkeit nicht erhalten. 
+Links fürs Hoch- und Herunterladen von Dateien sollen durch die Migratoren erstellt werden können. Kunden und Vertriebspartner sollen diese Möglichkeit nicht erhalten. 
 Eine Möglichkeit zur User Identifizierung (Benutzer/Passwort) ist daher unumgänglich.
 Für jeden Ordner soll ein Hochladelink generiert werden können. Für jede Datei soll ein Herunterladen-Link erstellt werden können. 
 Die Links dürfen nicht sprechend sein, damit nicht durch einfache Manipulation an andere Daten gelangt werden kann. 
@@ -70,8 +69,6 @@ Die Web Station läuft unter einem eigenen Benutzer.
 Sollten die Dateien nicht in der Webfreigabe direkt abgelegt werden, braucht der entsprechende User noch Berechtigungen auf dem gewählten Verzeichnis.
 
 \subsection{Messung der Performanz und Rückmeldung}
-Um Aussagen zur Performanz vornehmen zu können, ist es nötig Informationen über Startzeitpunkt, Endezeitpunkt, Anzahl der Dateien, Grösse der Dateien sowie Anzahl der Dateisplittungen festzuhalten.
+Um Aussagen zur Performanz vornehmen zu können, ist es nötig Informationen über Startzeitpunkt, Ende Zeitpunkt, Anzahl der Dateien, Grösse der Dateien sowie Anzahl der Dateisplittungen festzuhalten.
 So lässt sich berechnen, mit welcher Geschwindigkeit die Dateien übermittelt werden konnten.
 Rückschlüsse zur Einfachheit über den Upload zeigt die Anzahl der Verwendungen des Prototyps in einer Testphase auf.
-
-

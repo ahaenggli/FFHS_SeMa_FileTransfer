@@ -3,7 +3,7 @@ Ein erster Prototyp konnte gemäss Kapitel \ref{chapter:Realisierung} (Realisier
 Während einer vierwöchigen Testphase konnten so anschliessend im laufenden Betrieb Statistikdaten zur Benutzung gesammelt werden.
 Die Sammlung besteht nur aus Informationen zu den Uploads (=Nutzung der Hochladelinks).
 Bei den Downloadlinks ist eine Auswertung nicht aussagekräftig, da über den Browser keine Informationen gesammelt werden können, wann ein Download fertig ist. 
-Aus Sicht des Synology NAS wird die Datei als ganzes angeboten. Der Kunde kann aber Downloads pausieren oder gar durch ein Download-Tools ausführen anstelle eines Browsers.
+Aus Sicht des Synology NAS wird die Datei als Ganzes angeboten. Der Kunde kann aber Downloads pausieren oder gar durch ein Download-Tools ausführen anstelle eines Browsers.
 
 \section{Aggregierte Logfiles}
 Total wurden 94 Dateiübertragungen vorgenommen. Bei den 94 Übertragungen sind 253 Dateien übermittelt worden.
@@ -14,7 +14,7 @@ Auf den ersten Blick mag dies nicht sonderlich ideal wirken, darauf wird daher i
 
 \section{Performanz aus Logfiles}
 Eine reguläre Durchschnittsrechnung ist wenig sinnvoll bei den gesammelten Daten. 
-Der Grössenunterschied der Dateien ist dafür zu gross. Es wurden Verhältnismässig viele kleinere Dateien übertragen und wenige grosse,
+Der Grössenunterschied der Dateien ist dafür zu gross. Es wurden verhältnismässig viele kleinere Dateien übertragen und wenige grosse,
 wie in Abbildung \ref{fig:diagramme2} ersichtlich.
 
 \begin{figure}[!h]
@@ -25,7 +25,7 @@ wie in Abbildung \ref{fig:diagramme2} ersichtlich.
 \end{figure} 
 
 
-Zur sinnvollen Beurteilung werden daher Boxplots gebildet um die Verteilung zu bestimmen und auf den Median einzugehen.
+Zur sinnvollen Beurteilung werden daher Boxplots gebildet, um die Verteilung zu bestimmen und auf den Median einzugehen.
 \begin{figure}[!h]
     \centering
     \includegraphics[width=1\linewidth]{content/images/diagramme.png}
@@ -42,7 +42,7 @@ Die mediane Wartezeit für den Upload liegt bei nur 7.85 Sekunden. Eine kurzweil
 Die mediane Geschwindigkeit von 5.88 MB/S wirkt langsam, ist es aber keineswegs. 
 Es entspricht ungefähr der von Salt \cite{Salt} publizierten schweizweiten mittleren Upload-Geschwindigkeit. Die genannten 55 MBit/s entsprechen ca. 6.8 MB/S.
 
-Die keine Differenz lässt sich nebst der Anschluss-Technologie auch durch das Teilen und Zusammensetzen der grossen Dateien erklären.
+Die kleine Differenz lässt sich nebst der Anschluss-Technologie auch durch das Teilen und Zusammensetzen der grossen Dateien erklären.
 Das Log hat die Zeit dafür ebenfalls beim Hochladen mitgezählt. 
 
 
