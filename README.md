@@ -1,5 +1,7 @@
-# simple web file transfer: Seminararbeit im Studiengang INF an der FFHS  
-geschrieben in LaTex  
+# FFHS_SeMa_FileTransfer 
+simple web file transfer  
+Seminararbeit im Studiengang INF an der FFHS  
+geschrieben in LaTeX
 
 Diese Arbeit beschreibt die Entwicklung eines Prototyps für die Dateiübermittlung mittels
 einer einfachen Webseite. Dafür wurden die wichtigsten Eigenschaften (einfache Bedienung,
